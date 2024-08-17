@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6kpc2qchoqhj"]
+
+[ext_resource type="Script" path="res://Scripts/Building.gd" id="1_q1vga"]
+[ext_resource type="Script" path="res://HoverZone.gd" id="2_gqqug"]
+[ext_resource type="Texture2D" uid="uid://c2gvosyapeouc" path="res://icon.svg" id="2_t7vmr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xo8fl"]
+size = Vector2(160, 80)
+
+[node name="Building" type="Node2D"]
+script = ExtResource("1_q1vga")
+
+[node name="ProductionCycleTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="HoverZone" type="Area2D" parent="."]
+script = ExtResource("2_gqqug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoverZone"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_xo8fl")
+
+[node name="Thumbnail" type="Sprite2D" parent="HoverZone"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(0, -32)
+scale = Vector2(1, 0.5)
+texture = ExtResource("2_t7vmr")
+
+[connection signal="timeout" from="ProductionCycleTimer" to="." method="on_production_cycle_finished"]
+[connection signal="mouse_entered" from="HoverZone" to="HoverZone" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HoverZone" to="HoverZone" method="_on_mouse_exited"]
