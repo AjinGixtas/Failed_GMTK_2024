@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d7vyc2f4y4yw"]
+
+[ext_resource type="Script" path="res://Scripts/MilitaryFloor.gd" id="1_sc0gg"]
+[ext_resource type="Texture2D" uid="uid://i6fjko5lgd6c" path="res://Sprites/MilitaryFloor.png" id="1_t8vvd"]
+
+[node name="MilitaryFloor" type="Node2D"]
+script = ExtResource("1_sc0gg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("1_t8vvd")
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(-60, 2)

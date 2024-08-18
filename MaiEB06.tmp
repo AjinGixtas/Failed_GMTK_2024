@@ -106,6 +106,23 @@ grow_vertical = 2
 texture = ExtResource("7_kt3o2")
 stretch_mode = 5
 
+[node name="Control5" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+script = ExtResource("2_v041j")
+index = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Control5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_c56s3")
+stretch_mode = 6
+
 [node name="Floor" type="Sprite2D" parent="."]
 position = Vector2(0, 64)
 scale = Vector2(100, 1)
@@ -119,7 +136,7 @@ position = Vector2(0, -198)
 [node name="Building" parent="BuildingContainer" instance=ExtResource("3_hhqs4")]
 
 [node name="BuildHoverZone" type="Area2D" parent="BuildingContainer"]
-position = Vector2(-300, 0)
+position = Vector2(-200, 0)
 script = ExtResource("10_3vn3y")
 index_position = -1
 
@@ -128,13 +145,13 @@ position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_itbuy")
 
 [node name="Thumbnail" type="Sprite2D" parent="BuildingContainer/BuildHoverZone"]
-self_modulate = Color(1, 1, 1, 0.333333)
+self_modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(0, -25)
 scale = Vector2(5, 5)
 texture = ExtResource("7_c56s3")
 
 [node name="BuildHoverZone2" type="Area2D" parent="BuildingContainer"]
-position = Vector2(300, 0)
+position = Vector2(200, 0)
 script = ExtResource("10_3vn3y")
 index_position = 1
 
@@ -143,7 +160,7 @@ position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_itbuy")
 
 [node name="Thumbnail" type="Sprite2D" parent="BuildingContainer/BuildHoverZone2"]
-self_modulate = Color(1, 1, 1, 0.333333)
+self_modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(0, -25)
 scale = Vector2(5, 5)
 texture = ExtResource("7_c56s3")

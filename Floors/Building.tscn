@@ -1,33 +1,165 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6kpc2qchoqhj"]
+[gd_scene load_steps=14 format=3 uid="uid://c6kpc2qchoqhj"]
 
 [ext_resource type="Script" path="res://Scripts/Building.gd" id="1_q1vga"]
-[ext_resource type="Script" path="res://HoverZone.gd" id="2_gqqug"]
-[ext_resource type="Texture2D" uid="uid://c2gvosyapeouc" path="res://icon.svg" id="2_t7vmr"]
+[ext_resource type="Script" path="res://Scripts/FloorHoverZone.gd" id="2_h3qws"]
+[ext_resource type="Texture2D" uid="uid://85riyf0s2jvw" path="res://Sprites/ElectricFloor.png" id="3_cr23q"]
+[ext_resource type="Texture2D" uid="uid://c0dju55msjfik" path="res://Sprites/BaseFloor.png" id="4_odqu7"]
+[ext_resource type="Texture2D" uid="uid://csxm7qvpx45rc" path="res://Sprites/LogisticToken.png" id="5_j48q4"]
+[ext_resource type="Texture2D" uid="uid://n6gusddnaa33" path="res://Sprites/ElectricToken.png" id="6_1sgxb"]
+[ext_resource type="Texture2D" uid="uid://b1ock42pboqcu" path="res://Sprites/IndustryToken.png" id="7_struh"]
+[ext_resource type="FontFile" uid="uid://cgh50nhnjc312" path="res://pansyhand.ttf" id="8_rqbaf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xo8fl"]
-size = Vector2(160, 80)
+size = Vector2(192, 50)
+
+[sub_resource type="Animation" id="Animation_bsjgp"]
+resource_name = "bounce"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(8.115, 3.72), Vector2(3.96, 6.255), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.498039), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_00hpv"]
+_data = {
+"bounce": SubResource("Animation_bsjgp")
+}
+
+[sub_resource type="Theme" id="Theme_lnqmx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptruk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Building" type="Node2D"]
 script = ExtResource("1_q1vga")
 
 [node name="ProductionCycleTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 autostart = true
 
 [node name="HoverZone" type="Area2D" parent="."]
-script = ExtResource("2_gqqug")
+position = Vector2(0, -70)
+script = ExtResource("2_h3qws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoverZone"]
-position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_xo8fl")
 
 [node name="Thumbnail" type="Sprite2D" parent="HoverZone"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(0, -32)
-scale = Vector2(1, 0.5)
-texture = ExtResource("2_t7vmr")
+scale = Vector2(5, 5)
+texture = ExtResource("3_cr23q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(5.68434e-14, -25)
+scale = Vector2(5, 5)
+texture = ExtResource("4_odqu7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_00hpv")
+}
+autoplay = "bounce"
+
+[node name="StatDisplayer" type="Node2D" parent="."]
+position = Vector2(0, -94)
+
+[node name="ElectricToken" type="Sprite2D" parent="StatDisplayer"]
+position = Vector2(-64, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_1sgxb")
+
+[node name="StatDisplay" type="Label" parent="StatDisplayer/ElectricToken"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -0.799998
+offset_right = 2.0
+offset_bottom = 5.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_lnqmx")
+theme_override_fonts/font = ExtResource("8_rqbaf")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_ptruk")
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IndustryToken" type="Sprite2D" parent="StatDisplayer"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_struh")
+
+[node name="StatDisplay" type="Label" parent="StatDisplayer/IndustryToken"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -0.799998
+offset_right = 2.0
+offset_bottom = 5.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_lnqmx")
+theme_override_fonts/font = ExtResource("8_rqbaf")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_ptruk")
+text = "1
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LogisticToken" type="Sprite2D" parent="StatDisplayer"]
+position = Vector2(64, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_j48q4")
+
+[node name="StatDisplay" type="Label" parent="StatDisplayer/LogisticToken"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -0.799998
+offset_right = 2.0
+offset_bottom = 5.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_lnqmx")
+theme_override_fonts/font = ExtResource("8_rqbaf")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_ptruk")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="ProductionCycleTimer" to="." method="on_production_cycle_finished"]
+[connection signal="input_event" from="HoverZone" to="HoverZone" method="_on_input_event"]
 [connection signal="mouse_entered" from="HoverZone" to="HoverZone" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HoverZone" to="HoverZone" method="_on_mouse_exited"]

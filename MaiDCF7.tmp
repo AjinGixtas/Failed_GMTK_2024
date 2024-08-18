@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b14ybcrwyvow"]
+[gd_scene load_steps=9 format=3 uid="uid://b14ybcrwyvow"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_jvybg"]
 [ext_resource type="Texture2D" uid="uid://c2gvosyapeouc" path="res://icon.svg" id="1_rknsr"]
@@ -7,12 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://85riyf0s2jvw" path="res://Sprites/ElectricFloor.png" id="4_t2vcc"]
 [ext_resource type="Texture2D" uid="uid://c8f3q6dnpj1jc" path="res://Sprites/IndustrialFloor.png" id="5_i8pdf"]
 [ext_resource type="Texture2D" uid="uid://ds7n0uek6jy8y" path="res://Sprites/LogisticFloor.png" id="6_jss70"]
-[ext_resource type="Texture2D" uid="uid://c0dju55msjfik" path="res://Sprites/BaseFloor.png" id="7_c56s3"]
 [ext_resource type="Texture2D" uid="uid://i6fjko5lgd6c" path="res://Sprites/MilitaryFloor.png" id="7_kt3o2"]
-[ext_resource type="Script" path="res://Scripts/BuildHoverZone.gd" id="10_3vn3y"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_itbuy"]
-size = Vector2(192, 50)
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_jvybg")
@@ -118,43 +113,7 @@ position = Vector2(0, -198)
 
 [node name="Building" parent="BuildingContainer" instance=ExtResource("3_hhqs4")]
 
-[node name="BuildHoverZone" type="Area2D" parent="BuildingContainer"]
-position = Vector2(-300, 0)
-script = ExtResource("10_3vn3y")
-index_position = -1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingContainer/BuildHoverZone"]
-position = Vector2(0, -25)
-shape = SubResource("RectangleShape2D_itbuy")
-
-[node name="Thumbnail" type="Sprite2D" parent="BuildingContainer/BuildHoverZone"]
-self_modulate = Color(1, 1, 1, 0.333333)
-position = Vector2(0, -25)
-scale = Vector2(5, 5)
-texture = ExtResource("7_c56s3")
-
-[node name="BuildHoverZone2" type="Area2D" parent="BuildingContainer"]
-position = Vector2(300, 0)
-script = ExtResource("10_3vn3y")
-index_position = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingContainer/BuildHoverZone2"]
-position = Vector2(0, -25)
-shape = SubResource("RectangleShape2D_itbuy")
-
-[node name="Thumbnail" type="Sprite2D" parent="BuildingContainer/BuildHoverZone2"]
-self_modulate = Color(1, 1, 1, 0.333333)
-position = Vector2(0, -25)
-scale = Vector2(5, 5)
-texture = ExtResource("7_c56s3")
-
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Control" to="CanvasLayer/HBoxContainer/Control" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Control2" to="CanvasLayer/HBoxContainer/Control2" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Control3" to="CanvasLayer/HBoxContainer/Control3" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Control4" to="CanvasLayer/HBoxContainer/Control4" method="_on_pressed"]
-[connection signal="input_event" from="BuildingContainer/BuildHoverZone" to="BuildingContainer/BuildHoverZone" method="_on_input_event"]
-[connection signal="mouse_entered" from="BuildingContainer/BuildHoverZone" to="BuildingContainer/BuildHoverZone" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BuildingContainer/BuildHoverZone" to="BuildingContainer/BuildHoverZone" method="_on_mouse_exited"]
-[connection signal="input_event" from="BuildingContainer/BuildHoverZone2" to="BuildingContainer/BuildHoverZone2" method="_on_input_event"]
-[connection signal="mouse_entered" from="BuildingContainer/BuildHoverZone2" to="BuildingContainer/BuildHoverZone2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BuildingContainer/BuildHoverZone2" to="BuildingContainer/BuildHoverZone2" method="_on_mouse_exited"]
