@@ -52,10 +52,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [node name="Building" type="Node2D"]
 script = ExtResource("1_q1vga")
 
-[node name="ProductionCycleTimer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
-
 [node name="HoverZone" type="Area2D" parent="."]
 position = Vector2(0, -70)
 script = ExtResource("2_h3qws")
@@ -90,7 +86,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("6_1sgxb")
 
 [node name="StatDisplay" type="Label" parent="StatDisplayer/ElectricToken"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
@@ -114,7 +110,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("7_struh")
 
 [node name="StatDisplay" type="Label" parent="StatDisplayer/IndustryToken"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
@@ -140,7 +136,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_j48q4")
 
 [node name="StatDisplay" type="Label" parent="StatDisplayer/LogisticToken"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
@@ -159,7 +155,6 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="timeout" from="ProductionCycleTimer" to="." method="on_production_cycle_finished"]
 [connection signal="input_event" from="HoverZone" to="HoverZone" method="_on_input_event"]
 [connection signal="mouse_entered" from="HoverZone" to="HoverZone" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HoverZone" to="HoverZone" method="_on_mouse_exited"]

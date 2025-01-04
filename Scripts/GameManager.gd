@@ -1,9 +1,19 @@
 class_name GameManager extends Node2D
 
 @export var buildings : Dictionary
-var selected_index = 0
+var selected_index : int = 0
+var reset : bool = false
 func _ready():
 	buildings[0] = $BuildingContainer/Building
+func _on_reset_timer_timeout():
+	reset = not reset
+	print(reset)
+	if reset:
+		for key in buildings.keys():
+			buildings[key].reset()
+		return
+	for key in buildings.keys():
+		buildings[key].on_production_cycle_finished()
 func distribute_token(industry:int, electric:int, _position:int, logistic:int):
 	var building = null
 	for i in range(logistic):

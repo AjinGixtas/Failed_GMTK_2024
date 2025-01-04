@@ -10,6 +10,7 @@ var position_x = 0
 @export var floors : Array[FloorType] = []
 @export var floor_constructed = 0
 @export var floor_powered = 0
+var floor_powered_next = 0
 var floor_graphic_display : Array[Node2D] = []
 func intialize(_game_manager : GameManager, _position_x : int):
 	game_manager = _game_manager
@@ -20,8 +21,8 @@ func add_industry_token() -> bool:
 	floor_constructed += 1
 	return true
 func add_electric_token() -> bool:
-	if floor_powered == floor_constructed: return false # I don't need more electric token!
-	floor_powered += 1
+	if floor_powered_next == floor_constructed: return false # I don't need more electric token!
+	floor_powered_next += 1
 	stat_displayers[FloorType.ELECTRIC].text = str(floor_powered) + '/' + str(len(floors))
 	return true
 func on_production_cycle_finished():
@@ -31,10 +32,14 @@ func on_production_cycle_finished():
 		if   floors[i] == FloorType.ELECTRIC: products_data[FloorType.ELECTRIC] += 4
 		elif floors[i] == FloorType.INDUSTRY: products_data[FloorType.INDUSTRY] += 1
 		elif floors[i] == FloorType.LOGISTIC: products_data[FloorType.LOGISTIC] += 1
+	print(products_data)
 	stat_displayers[FloorType.INDUSTRY].text = str(products_data[FloorType.INDUSTRY])
 	stat_displayers[FloorType.LOGISTIC].text = str(products_data[FloorType.LOGISTIC])
 	game_manager.distribute_token(products_data[FloorType.INDUSTRY], products_data[FloorType.ELECTRIC], position_x, products_data[FloorType.LOGISTIC])
-	
+func reset():
+	floor_powered_next = 0
+	floor_powered = floor_powered_next
+
 var thumbnails : Array[Resource] = [ load("res://Sprites/ElectricFloor.png"), load("res://Sprites/IndustrialFloor.png"), load("res://Sprites/LogisticFloor.png"), load("res://Sprites/MilitaryFloor.png") ]
 func add_floor(floor_type : int):
 	floors.append(floor_type)
